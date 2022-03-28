@@ -14,7 +14,11 @@ const GridRow: FC<Props> = ({ word }) => {
   return (
     <div className='flex justify-center'>
       {letters.map((letter, idx) => (
-        <GridCell key={idx} letter={letter} />
+        <GridCell
+          key={idx}
+          letter={letter}
+          status={letter ? 'filled' : 'empty'}
+        />
       ))}
     </div>
   );

@@ -1,7 +1,9 @@
 import { FC } from 'react';
+import { LetterStatus } from '../../types/LetterStatus';
 
 interface Props {
   letter: string;
+  status: LetterStatus | 'filled' | 'empty';
 }
 
 const styles = {
@@ -16,18 +18,10 @@ const styles = {
   },
 };
 
-const GridCell: FC<Props> = ({ letter }) => {
+const GridCell: FC<Props> = ({ letter, status }) => {
   const { cellStyles, cellColors } = styles;
 
-  return (
-    <div
-      className={`${cellStyles} ${
-        letter ? cellColors.filled : cellColors.empty
-      }`}
-    >
-      {letter}
-    </div>
-  );
+  return <div className={`${cellStyles} ${cellColors[status]}`}>{letter}</div>;
 };
 
 export default GridCell;
