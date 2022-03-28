@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import './index.css';
 import Grid from './components/grid/Grid';
+import Keyboard from './components/keyboard/Keyboard';
 
 const App: FC = () => {
   return (
@@ -12,8 +13,11 @@ const App: FC = () => {
         </h1>
       </header>
 
-      <main>
-        <Grid />
+      <main className='relative flex flex-col max-w-xl ml-auto mr-auto'>
+        <div className='flex items-center justify-center grow'>
+          <Grid />
+        </div>
+        <Keyboard />
       </main>
     </div>
   );

@@ -5,7 +5,7 @@ import GridRow from './GridRow';
 
 const Grid: FC = () => {
   return (
-    <div className='mt-4'>
+    <div>
       {[...Array(ROWS_COUNT)].map((elem, idx) => (
         <GridRow key={idx} word={'myth'} />
       ))}
