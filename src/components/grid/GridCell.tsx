@@ -5,9 +5,9 @@ interface Props {
 }
 
 const styles = {
-  tileStyles:
+  cellStyles:
     'w-14 h-14 m-0.5 flex justify-center items-center border-2 font-bold text-3xl uppercase',
-  tileColors: {
+  cellColors: {
     empty: 'bg-white border-gray-300 text-gray-800',
     filled: 'bg-white border-gray-500 text-gray-800',
     absent: 'bg-gray-500 border-gray-500 text-white',
@@ -16,13 +16,13 @@ const styles = {
   },
 };
 
-const Tile: FC<Props> = ({ letter }) => {
-  const { tileStyles, tileColors } = styles;
+const GridCell: FC<Props> = ({ letter }) => {
+  const { cellStyles, cellColors } = styles;
 
   return (
     <div
-      className={`${tileStyles} ${
-        letter ? tileColors.filled : tileColors.empty
+      className={`${cellStyles} ${
+        letter ? cellColors.filled : cellColors.empty
       }`}
     >
       {letter}
@@ -30,4 +30,4 @@ const Tile: FC<Props> = ({ letter }) => {
   );
 };
 
-export default Tile;
+export default GridCell;

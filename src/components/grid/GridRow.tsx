@@ -1,23 +1,23 @@
 import { FC } from 'react';
 
 import { WORD_LENGTH } from '../../constants/settings';
-import Tile from './Tile';
+import GridCell from './GridCell';
 
 interface Props {
   word: string;
 }
 
-const Row: FC<Props> = ({ word }) => {
+const GridRow: FC<Props> = ({ word }) => {
   const remainingLetters = WORD_LENGTH - word.length;
   const letters = word.split('').concat(Array(remainingLetters).fill(''));
 
   return (
     <div className='flex justify-center'>
       {letters.map((letter, idx) => (
-        <Tile key={idx} letter={letter} />
+        <GridCell key={idx} letter={letter} />
       ))}
     </div>
   );
 };
 
-export default Row;
+export default GridRow;
