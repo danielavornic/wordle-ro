@@ -13,7 +13,7 @@ const App: FC = () => {
         </h1>
       </header>
 
-      <main className='relative flex flex-col max-w-xl ml-auto mr-auto'>
+      <main className='relative flex flex-col max-w-xl mx-auto'>
         <div className='flex items-center justify-center grow'>
           <Grid />
         </div>
