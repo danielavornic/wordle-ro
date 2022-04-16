@@ -1,16 +1,20 @@
 import { FC } from 'react';
+import { ROWS_COUNT } from '../../constants/settings';
+import { useStore } from '../../store/store';
 
 import GridRow from './GridRow';
 
 const Grid: FC = () => {
+  const { guesses } = useStore();
+
+  const remainingGuesses = ROWS_COUNT - guesses.length;
+  const rows = [...guesses, ...Array(remainingGuesses).fill('')];
+
   return (
     <div>
-      <GridRow word={'acasa'} />
-      <GridRow word={'ninge'} />
-      <GridRow word={'soare'} />
-      <GridRow word={'curat'} />
-      <GridRow word={'fiica'} />
-      <GridRow word={'miros'} />
+      {rows.map((word, idx) => (
+        <GridRow key={idx} word={word} />
+      ))}
     </div>
   );
 };
