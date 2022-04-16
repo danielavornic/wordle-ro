@@ -1,12 +1,15 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+import { GameStatus } from '../types/GameStatus';
 import { getRandomWord } from '../utils/word-utils';
 
 interface StoreState {
   answer: string;
   guesses: string[];
-  currentRow: number;
+  gameStatus: GameStatus;
   addGuess: (guess: string) => void;
+  updateGameStatus: (status: GameStatus) => void;
+  newGame: () => void;
 }
 
 export const useStore = create<StoreState>(
@@ -14,12 +17,23 @@ export const useStore = create<StoreState>(
     (set, get) => ({
       answer: getRandomWord(),
       guesses: [],
-      currentRow: 0,
+      gameStatus: 'playing',
       addGuess: (guess: string) => {
-        set(({ currentRow }) => ({
+        set(() => ({
           guesses: get().guesses.concat(guess),
-          currentRow: currentRow + 1,
         }));
+      },
+      updateGameStatus: (status: GameStatus) => {
+        set(() => ({
+          gameStatus: status,
+        }));
+      },
+      newGame: () => {
+        set({
+          answer: getRandomWord(),
+          guesses: [],
+          gameStatus: 'playing',
+        });
       },
     }),
     {
