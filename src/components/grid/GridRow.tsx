@@ -12,7 +12,7 @@ interface Props {
 }
 
 const GridRow: FC<Props> = ({ word }) => {
-  const { answer } = useStore();
+  const { answer, guesses } = useStore();
   const [guessStatuses, setGuessStatuses] = useState<LetterStatus[]>([]);
 
   const remainingLetters = WORD_LENGTH - word.length;
@@ -21,7 +21,7 @@ const GridRow: FC<Props> = ({ word }) => {
   useEffect(() => {
     setGuessStatuses(computeGuess(word, answer));
     console.log(answer);
-  }, [answer]);
+  }, [answer, guesses]);
 
   return (
     <div className='flex justify-center'>

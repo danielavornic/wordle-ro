@@ -11,13 +11,13 @@ interface StoreState {
 
 export const useStore = create<StoreState>(
   persist(
-    (set) => ({
+    (set, get) => ({
       answer: getRandomWord(),
-      guesses: ['hello', 'calau', '', '', '', ''],
+      guesses: [],
       currentRow: 0,
       addGuess: (guess: string) => {
-        set(({ guesses, currentRow }) => ({
-          guesses: guesses.map((g, i) => (i === currentRow ? g : guess)),
+        set(({ currentRow }) => ({
+          guesses: get().guesses.concat(guess),
           currentRow: currentRow + 1,
         }));
       },
@@ -27,3 +27,5 @@ export const useStore = create<StoreState>(
     }
   )
 );
+
+// useStore.persist.clearStorage();
