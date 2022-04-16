@@ -5,16 +5,18 @@ import { useStore } from '../../store/store';
 import GridRow from './GridRow';
 
 const Grid: FC = () => {
-  const { guesses, addGuess } = useStore();
+  const { guesses, answer, addGuess, updateGameStatus, gameStatus } =
+    useStore();
   const [guess, setGuess] = useState<string>('');
 
   let rows = [...guesses];
 
-  const remainingGuesses = ROWS_COUNT - guesses.length;
-  if (remainingGuesses > 0) {
-    rows.push(guess);
-    rows = rows.concat(Array(remainingGuesses).fill(''));
-  }
+  if (rows.length < ROWS_COUNT) rows.push(guess);
+
+  const guessesRemaining = ROWS_COUNT - rows.length;
+
+  if (guessesRemaining > 0)
+    rows = rows.concat(Array(guessesRemaining).fill(''));
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newGuess = e.target.value;
@@ -22,6 +24,13 @@ const Grid: FC = () => {
     if (newGuess.length === WORD_LENGTH) {
       addGuess(newGuess);
       setGuess('');
+      updateGameStatus(
+        newGuess === answer
+          ? 'won'
+          : ROWS_COUNT - guesses.length === 1
+          ? 'lost'
+          : 'playing'
+      );
       return;
     }
 
@@ -35,6 +44,7 @@ const Grid: FC = () => {
         value={guess}
         onChange={handleChange}
         className='border mx-auto block w-full'
+        disabled={gameStatus !== 'playing'}
       />
       {rows.map((word, idx) => (
         <GridRow key={idx} word={word} />
