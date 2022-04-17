@@ -122,7 +122,7 @@ export const wordlist = [
   'cafea',
   'alama',
   'lexic',
-  'Parca',
+  'parca',
   'garou',
   'vapor',
   'pifan',
@@ -1672,5 +1672,4 @@ export const wordlist = [
   'dineu',
   'gluma',
   'suflu',
-  ]
-  
+];
