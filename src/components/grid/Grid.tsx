@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
+
 import { ROWS_COUNT, WORD_LENGTH } from '../../constants/settings';
 import { useStore } from '../../store/store';
 
@@ -11,7 +12,9 @@ const Grid: FC = () => {
 
   let rows = [...guesses];
 
-  if (rows.length < ROWS_COUNT) rows.push(guess);
+  if (rows.length < ROWS_COUNT) {
+    rows.push({ guess });
+  }
 
   const guessesRemaining = ROWS_COUNT - rows.length;
 
@@ -46,8 +49,8 @@ const Grid: FC = () => {
         className='border mx-auto block w-full'
         disabled={gameStatus !== 'playing'}
       />
-      {rows.map((word, idx) => (
-        <GridRow key={idx} word={word} />
+      {rows.map(({ guess, evaluation }, idx) => (
+        <GridRow key={idx} word={guess} evaluation={evaluation} />
       ))}
     </div>
   );

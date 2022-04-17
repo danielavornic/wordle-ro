@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import App from '../App';
+
 import { ROWS_COUNT } from '../constants/settings';
 import { useStore } from '../store/store';
 import { render, screen, userEvent } from '../utils/test-utils';
+import { computeGuess } from '../utils/word-utils';
+
+import App from '../App';
 
 describe('Main app test', () => {
   it('the title is visible', () => {
@@ -22,7 +25,10 @@ describe('Main app test', () => {
   });
 
   it('shows first guess', () => {
-    useStore.setState({ guesses: ['acasa'] });
+    const evaluation = computeGuess('acasa', 'legat');
+    const guess: string = 'acasa';
+    useStore.setState({ guesses: [{ guess, evaluation }] });
+
     render(<App />);
     const grid = document.querySelector('main div:first-child');
 

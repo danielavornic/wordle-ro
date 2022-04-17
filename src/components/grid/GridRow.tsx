@@ -1,32 +1,23 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { WORD_LENGTH } from '../../constants/settings';
-import { useStore } from '../../store/store';
 import { LetterStatus } from '../../types/LetterStatus';
-import { computeGuess } from '../../utils/word-utils';
 
 import GridCell from './GridCell';
 
 interface Props {
   word: string;
+  evaluation?: LetterStatus[];
 }
 
-const GridRow: FC<Props> = ({ word }) => {
-  const { answer, guesses } = useStore();
-  const [guessStatuses, setGuessStatuses] = useState<LetterStatus[]>([]);
-
+const GridRow: FC<Props> = ({ word = '', evaluation = [] }) => {
   const remainingLetters = WORD_LENGTH - word.length;
   const letters = word.split('').concat(Array(remainingLetters).fill(''));
-
-  useEffect(() => {
-    setGuessStatuses(computeGuess(word, answer));
-    console.log(answer);
-  }, [answer, guesses]);
 
   return (
     <div className='flex justify-center grid-row'>
       {letters.map((letter, idx) => (
-        <GridCell key={idx} letter={letter} status={guessStatuses[idx]} />
+        <GridCell key={idx} letter={letter} status={evaluation[idx]} />
       ))}
     </div>
   );
