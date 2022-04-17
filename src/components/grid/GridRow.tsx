@@ -24,7 +24,7 @@ const GridRow: FC<Props> = ({ word }) => {
   }, [answer, guesses]);
 
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center grid-row'>
       {letters.map((letter, idx) => (
         <GridCell key={idx} letter={letter} status={guessStatuses[idx]} />
       ))}
