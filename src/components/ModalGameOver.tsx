@@ -9,7 +9,7 @@ const styles = {
 };
 
 const ModalGameOver = () => {
-  const { newGame, gameStatus } = useStore();
+  const { newGame, gameStatus, answer } = useStore();
   const {
     modal: modalStyles,
     heading: headingStyles,
@@ -20,7 +20,7 @@ const ModalGameOver = () => {
     <div role='modal' className={modalStyles}>
       <h2 className={headingStyles}>
         Game Over! <br />
-        {gameStatus === 'won' ? 'You won 😄' : 'You lost 😔'}
+        {gameStatus === 'won' ? 'You won 😄' : `You lost.\n The answer was "${answer}".`}
       </h2>
       <button className={buttonStyles} onClick={() => newGame()}>
         New Game
