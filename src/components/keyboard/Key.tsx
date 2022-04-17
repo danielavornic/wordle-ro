@@ -26,8 +26,8 @@ const styles = {
     present: 'bg-yellow-500 btext-white',
     correct: 'bg-green-500 text-white',
   },
-  letterKeyWidth: 'w-8 md:w-10',
-  funcKeyWidth: 'w-12 md:w-16',
+  letterKeyWidth: 'w-8 sm:w-10',
+  funcKeyWidth: 'w-12 sm:w-16',
 };
 
 const Key: FC<Props> = ({ value, status }) => {

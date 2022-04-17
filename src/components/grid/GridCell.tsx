@@ -8,7 +8,7 @@ interface Props {
 
 const styles = {
   cellStyles:
-    'w-14 h-14 m-0.5 flex justify-center items-center border-2 font-bold text-3xl uppercase before:inline-block before:content-["_"]',
+    'w-12 h-12 xxl:w-16 xxl:h-16 m-0.5 flex justify-center items-center border-2 font-bold text-3xl uppercase before:inline-block before:content-["_"]',
   cellColors: {
     empty: 'bg-white border-gray-300 text-gray-800',
     filled: 'bg-white border-gray-500 text-gray-800',
