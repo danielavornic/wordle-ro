@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { ROWS_COUNT } from '../constants/settings';
 import { useStore } from '../store/store';
 import { render, screen, userEvent } from '../utils/test-utils';
-import { computeGuess } from '../utils/word-utils';
+import { computeGuess, getRandomWord } from '../utils/word-utils';
 
 import App from '../App';
 
@@ -25,8 +25,8 @@ describe('Main app test', () => {
   });
 
   it('shows first guess', () => {
-    const evaluation = computeGuess('acasa', 'legat');
-    const guess: string = 'acasa';
+    const guess: string = getRandomWord();
+    const evaluation = computeGuess(guess, 'legat');
     useStore.setState({ guesses: [{ guess, evaluation }] });
 
     render(<App />);
@@ -34,7 +34,7 @@ describe('Main app test', () => {
 
     expect(screen.queryAllByRole('modal')).toHaveLength(0);
     expect(document.querySelectorAll('.grid-row')).toHaveLength(ROWS_COUNT);
-    expect(grid?.textContent).toEqual('acasa');
+    expect(grid?.textContent).toEqual(guess);
   });
 
   it('shows modal on game is lost', () => {
@@ -51,7 +51,7 @@ describe('Main app test', () => {
     expect(screen.getByRole('modal')).toBeInTheDocument();
   });
 
-  it('start new game after losing', () => {
+  it('can start new game after losing', () => {
     useStore.setState({ gameStatus: 'lost' });
     render(<App />);
     const grid = document.querySelector('main div:first-child');
@@ -60,7 +60,7 @@ describe('Main app test', () => {
     expect(grid?.textContent).toEqual('');
   });
 
-  it('start new game after winning', () => {
+  it('can start new game after winning', () => {
     useStore.setState({ gameStatus: 'won' });
     render(<App />);
     const grid = document.querySelector('main div:first-child');
