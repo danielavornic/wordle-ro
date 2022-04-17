@@ -1,5 +1,6 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+import { ROWS_COUNT } from '../constants/settings';
 
 import { GameStatus } from '../types/GameStatus';
 import { LetterStatus } from '../types/LetterStatus';
@@ -16,7 +17,6 @@ interface StoreState {
   guesses: Guess[];
   gameStatus: GameStatus;
   addGuess: (guess: string) => void;
-  updateGameStatus: (status: GameStatus) => void;
   newGame: () => void;
 }
 
@@ -28,6 +28,9 @@ export const useStore = create<StoreState>(
       gameStatus: 'playing',
       addGuess: (guess: string) => {
         const evaluation = computeGuess(guess, get().answer);
+        const didWin = evaluation.every((letter) => letter === 'correct');
+        const remainingGuesses = get().guesses.length + 1;
+
         set({
           guesses: [
             ...get().guesses,
@@ -36,12 +39,12 @@ export const useStore = create<StoreState>(
               evaluation,
             },
           ],
+          gameStatus: didWin
+            ? 'won'
+            : remainingGuesses === ROWS_COUNT
+            ? 'lost'
+            : 'playing',
         });
-      },
-      updateGameStatus: (status: GameStatus) => {
-        set(() => ({
-          gameStatus: status,
-        }));
       },
       newGame: () => {
         set({

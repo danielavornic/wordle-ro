@@ -6,8 +6,7 @@ import { useStore } from '../../store/store';
 import GridRow from './GridRow';
 
 const Grid: FC = () => {
-  const { guesses, answer, addGuess, updateGameStatus, gameStatus } =
-    useStore();
+  const { guesses, answer, addGuess, gameStatus } = useStore();
   const [guess, setGuess] = useState<string>('');
 
   let rows = [...guesses];
@@ -27,13 +26,6 @@ const Grid: FC = () => {
     if (newGuess.length === WORD_LENGTH) {
       addGuess(newGuess);
       setGuess('');
-      updateGameStatus(
-        newGuess === answer
-          ? 'won'
-          : ROWS_COUNT - guesses.length === 1
-          ? 'lost'
-          : 'playing'
-      );
       return;
     }
 
