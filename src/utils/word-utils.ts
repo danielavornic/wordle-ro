@@ -7,13 +7,13 @@ export const getRandomWord = (): string => {
 };
 
 export const isWordValid = (word: string): boolean => {
-  return wordlist.includes(word);
+  return wordlist.includes(word.toLowerCase());
 };
 
 export const computeGuess = (guess: string, answer: string): LetterStatus[] => {
   const result: LetterStatus[] = [];
-  const guessArr = guess.split('');
-  const answerArr = answer.split('');
+  const guessArr = guess.toLowerCase().split('');
+  const answerArr = answer.toLowerCase().split('');
   const answerLetterCount: Record<string, number> = {};
 
   guessArr.forEach((letter, index) => {
