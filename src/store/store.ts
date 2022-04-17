@@ -16,6 +16,7 @@ interface StoreState {
   answer: string;
   guesses: Guess[];
   gameStatus: GameStatus;
+  currentRow: number;
   addGuess: (guess: string) => void;
   newGame: () => void;
 }
@@ -26,6 +27,7 @@ export const useStore = create<StoreState>(
       answer: getRandomWord(),
       guesses: [],
       gameStatus: 'playing',
+      currentRow: 0,
       addGuess: (guess: string) => {
         const evaluation = computeGuess(guess, get().answer);
         const didWin = evaluation.every((letter) => letter === 'correct');
@@ -44,6 +46,7 @@ export const useStore = create<StoreState>(
             : remainingGuesses === ROWS_COUNT
             ? 'lost'
             : 'playing',
+          currentRow: get().currentRow + 1,
         });
       },
       newGame: () => {
@@ -51,6 +54,7 @@ export const useStore = create<StoreState>(
           answer: getRandomWord(),
           guesses: [],
           gameStatus: 'playing',
+          currentRow: 0,
         });
       },
     }),
