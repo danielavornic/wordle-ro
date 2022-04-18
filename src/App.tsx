@@ -13,7 +13,7 @@ import Grid from './components/grid/Grid';
 import Keyboard from './components/keyboard/Keyboard';
 
 const App: FC = () => {
-  const { addGuess } = useStore();
+  const { gameStatus, addGuess } = useStore();
   const [guess, setGuess, addLetterGuess] = useGuess();
   const prevGuess = usePrevious(guess);
   const [isValidGuess, setIsValidGuess] = useState<boolean>(true);
@@ -35,7 +35,7 @@ const App: FC = () => {
 
   return (
     <div className='container mx-auto relative'>
-      <ModalGameOver />
+      {gameStatus !== 'playing' && <ModalGameOver />}
 
       <header>
         <h1 className='text-3xl font-bold text-center py-2 border-b'>
