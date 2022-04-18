@@ -32,7 +32,12 @@ const GridRow: FC<Props> = ({
   return (
     <div className={`flex justify-center grid-row ${animClass}`}>
       {letters.map((letter, idx) => (
-        <GridCell key={idx} letter={letter} status={evaluation[idx]} />
+        <GridCell
+          key={idx}
+          letter={letter}
+          status={evaluation[idx]}
+          rowAnimClass={animClass}
+        />
       ))}
     </div>
   );

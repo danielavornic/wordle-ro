@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { LetterStatus } from '../../types/LetterStatus';
 
 interface Props {
   letter: string;
   status: LetterStatus | 'filled' | 'empty';
+  rowAnimClass: string;
 }
 
 const styles = {
@@ -18,10 +19,23 @@ const styles = {
   },
 };
 
-const GridCell: FC<Props> = ({ letter, status }) => {
+const GridCell: FC<Props> = ({ letter, status, rowAnimClass }) => {
   const { cellStyles, cellColors } = styles;
+  const [animClass, setAnimClass] = useState<string>('');
 
-  return <div className={`${cellStyles} ${cellColors[status]}`}>{letter}</div>;
+  useEffect(() => {
+    setAnimClass(
+      letter !== '' && rowAnimClass === '' && !status ? 'pop-animation' : ''
+    );
+    const interval = setTimeout(() => setAnimClass(''), 700);
+    return () => clearTimeout(interval);
+  }, [letter]);
+
+  return (
+    <div className={`${cellStyles} ${cellColors[status]} ${animClass}`}>
+      {letter}
+    </div>
+  );
 };
 
 export default GridCell;
