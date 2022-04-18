@@ -17,6 +17,7 @@ interface StoreState {
   guesses: Guess[];
   gameStatus: GameStatus;
   currentRow: number;
+  keyLetterStatuses: { [key: string]: LetterStatus };
   addGuess: (guess: string) => void;
   newGame: () => void;
 }
@@ -28,24 +29,38 @@ export const useStore = create<StoreState>(
       guesses: [],
       gameStatus: 'playing',
       currentRow: 0,
+      keyLetterStatuses: {},
       addGuess: (guess: string) => {
         const evaluation = computeGuess(guess, get().answer);
         const didWin = evaluation.every((letter) => letter === 'correct');
         const remainingGuesses = get().guesses.length + 1;
 
+        const guesses = [...get().guesses, { guess, evaluation }];
+        const gameStatus = didWin
+          ? 'won'
+          : remainingGuesses === ROWS_COUNT
+          ? 'lost'
+          : 'playing';
+        const keyLetterStatuses = get().keyLetterStatuses;
+
+        evaluation.forEach((ev, idx) => {
+          const letter = guess[idx];
+          const letterEval = keyLetterStatuses[letter];
+          switch (letterEval) {
+            case 'correct':
+              break;
+            case 'present':
+              if (ev === 'absent') break;
+            default:
+              keyLetterStatuses[letter] = ev;
+              break;
+          }
+        });
+
         set({
-          guesses: [
-            ...get().guesses,
-            {
-              guess,
-              evaluation,
-            },
-          ],
-          gameStatus: didWin
-            ? 'won'
-            : remainingGuesses === ROWS_COUNT
-            ? 'lost'
-            : 'playing',
+          guesses,
+          gameStatus,
+          keyLetterStatuses,
           currentRow: get().currentRow + 1,
         });
       },
@@ -55,6 +70,7 @@ export const useStore = create<StoreState>(
           guesses: [],
           gameStatus: 'playing',
           currentRow: 0,
+          keyLetterStatuses: {},
         });
       },
     }),
@@ -63,5 +79,3 @@ export const useStore = create<StoreState>(
     }
   )
 );
-
-// useStore.persist.clearStorage();

@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+
 import { LetterStatus } from '../../types/LetterStatus';
 
 interface Props {
@@ -8,8 +9,22 @@ interface Props {
 }
 
 const styles = {
-  cellStyles:
-    'w-12 h-12 xxl:w-16 xxl:h-16 m-0.5 flex justify-center items-center border-2 font-bold text-3xl uppercase before:inline-block before:content-["_"]',
+  cellStyles: [
+    'w-12',
+    'h-12',
+    'xxl:w-16',
+    'xxl:h-16',
+    'm-0.5',
+    'flex',
+    'justify-center',
+    'items-center',
+    'border-2',
+    'font-bold',
+    'text-3xl',
+    'uppercase',
+    'before:inline-block',
+    'before:content-["_"]',
+  ].join(' '),
   cellColors: {
     empty: 'bg-white border-gray-300 text-gray-800',
     filled: 'bg-white border-gray-500 text-gray-800',
@@ -24,9 +39,8 @@ const GridCell: FC<Props> = ({ letter, status, rowAnimClass }) => {
   const [animClass, setAnimClass] = useState<string>('');
 
   useEffect(() => {
-    setAnimClass(
-      letter !== '' && rowAnimClass === '' && !status ? 'pop-animation' : ''
-    );
+    if (letter !== '' && rowAnimClass === '' && !status)
+      setAnimClass('pop-animation');
     const interval = setTimeout(() => setAnimClass(''), 700);
     return () => clearTimeout(interval);
   }, [letter]);

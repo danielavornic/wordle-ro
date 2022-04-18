@@ -9,7 +9,7 @@ interface Props {
 const KeyboardRow: FC<Props> = ({ keys, onClick }) => (
   <div className='flex items-center justify-center'>
     {keys.split('').map((key, idx) => (
-      <Key key={idx} value={key} status='notUsed' onClick={onClick} />
+      <Key key={idx} value={key} onClick={onClick} />
     ))}
   </div>
 );

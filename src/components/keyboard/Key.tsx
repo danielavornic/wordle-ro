@@ -1,11 +1,10 @@
 import { FC } from 'react';
 
 import { FiDelete } from 'react-icons/fi';
-import { LetterStatus } from '../../types/LetterStatus';
+import { useStore } from '../../store/store';
 
 interface Props {
   value: string;
-  status: LetterStatus | 'notUsed';
   onClick: (value: string) => void;
 }
 
@@ -24,15 +23,20 @@ const styles = {
   ].join(' '),
   keyColors: {
     notUsed: 'bg-gray-300 text-gray-800',
-    absent: 'bg-gray-500text-white',
-    present: 'bg-yellow-500 btext-white',
+    absent: 'bg-gray-500 text-white',
+    present: 'bg-yellow-500 text-white',
     correct: 'bg-green-500 text-white',
   },
   letterKeyWidth: 'w-8 sm:w-10',
   funcKeyWidth: 'w-12 sm:w-16',
 };
 
-const Key: FC<Props> = ({ value, status, onClick }) => {
+const Key: FC<Props> = ({ value, onClick }) => {
+  const { keyLetterStatuses } = useStore();
+  const status = keyLetterStatuses[value]
+    ? keyLetterStatuses[value]
+    : 'notUsed';
+
   const letter = value === '↵' ? 'Enter' : value === '←' ? 'Backspace' : value;
   const char = letter === 'Backspace' ? <FiDelete /> : letter;
 
