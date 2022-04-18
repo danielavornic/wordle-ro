@@ -21,7 +21,6 @@ const ModalGameOver: FC = () => {
   return (
     <div role='modal' className={modalStyles}>
       <h2 className={headingStyles}>
-        Game Over! <br />
         {gameStatus === 'won'
           ? 'Excelent! Ai ghicit cuvântul!'
           : `Cuvântul era "${answer.toUpperCase}".`}
