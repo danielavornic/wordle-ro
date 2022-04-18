@@ -56,7 +56,7 @@ describe('Main app test', () => {
     render(<App />);
     const grid = document.querySelector('main div:first-child');
 
-    userEvent.click(screen.getByText(/New game/i));
+    userEvent.click(screen.getByText(/Joc nou/i));
     expect(grid?.textContent).toEqual('');
   });
 
@@ -65,7 +65,7 @@ describe('Main app test', () => {
     render(<App />);
     const grid = document.querySelector('main div:first-child');
 
-    userEvent.click(screen.getByText(/New game/i));
+    userEvent.click(screen.getByText(/Joc nou/i));
     expect(grid?.textContent).toEqual('');
   });
 });
