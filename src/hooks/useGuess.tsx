@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { WORD_LENGTH } from '../constants/settings';
+import useStore from '../store/store';
 import { isWordValid } from '../utils/word-utils';
 import usePrevious from './usePrevious';
 
@@ -9,6 +10,7 @@ const useGuess = (): [
   React.Dispatch<React.SetStateAction<string>>,
   (letter: string) => void
 ] => {
+  const { gameStatus } = useStore();
   const [guess, setGuess] = useState<string>('');
   const prevGuess = usePrevious(guess);
 
@@ -30,16 +32,14 @@ const useGuess = (): [
     });
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const { key: letter } = e;
-
-    addLetterGuess(letter);
-  };
+  const handleKeyDown = ({ key }: KeyboardEvent) => addLetterGuess(key);
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
+    if (gameStatus === 'playing') {
+      document.addEventListener('keydown', handleKeyDown);
+    }
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [gameStatus]);
 
   useEffect(() => {
     if (
