@@ -18,7 +18,6 @@ const styles = {
     'm-0.5',
     'font-bold',
     'uppercase',
-    'text-xs',
     'cursor-pointer',
   ].join(' '),
   keyColors: {
@@ -28,7 +27,7 @@ const styles = {
     correct: 'bg-green-500 text-white',
   },
   letterKeyWidth: 'w-8 sm:w-10',
-  funcKeyWidth: 'w-12 sm:w-16',
+  funcKeyWidth: 'w-14 sm:w-16',
 };
 
 const Key: FC<Props> = ({ value, onClick }) => {

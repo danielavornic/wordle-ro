@@ -10,10 +10,12 @@ interface Props {
 
 const styles = {
   cellStyles: [
-    'w-12',
-    'h-12',
-    'xxl:w-16',
-    'xxl:h-16',
+    'w-14',
+    'h-14',
+    'sm:w-12',
+    'sm:h-12',
+    '2xl:w-16',
+    '2xl:h-16',
     'm-0.5',
     'flex',
     'justify-center',
