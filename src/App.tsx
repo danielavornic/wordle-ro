@@ -4,7 +4,7 @@ import './index.css';
 
 import { WORD_LENGTH } from './constants/settings';
 import { isWordValid } from './utils/word-utils';
-import { useStore } from './store/store';
+import useStore from './store/store';
 import usePrevious from './hooks/usePrevious';
 import useGuess from './hooks/useGuess';
 

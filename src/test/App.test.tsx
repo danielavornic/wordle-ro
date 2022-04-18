@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { ROWS_COUNT } from '../constants/settings';
-import { useStore } from '../store/store';
+import useStore from '../store/store';
 import { render, screen, userEvent } from '../utils/test-utils';
 import { computeGuess, getRandomWord } from '../utils/word-utils';
 

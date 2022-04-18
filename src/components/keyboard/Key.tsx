@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { FiDelete } from 'react-icons/fi';
-import { useStore } from '../../store/store';
+import useStore from '../../store/store';
 
 interface Props {
   value: string;

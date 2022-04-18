@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useStore } from '../store/store';
+import useStore from '../store/store';
 
 const styles = {
   modal:

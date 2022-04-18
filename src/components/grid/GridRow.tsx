@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { WORD_LENGTH } from '../../constants/settings';
-import { useStore } from '../../store/store';
+import useStore from '../../store/store';
 import { LetterStatus } from '../../types/LetterStatus';
 
 import GridCell from './GridCell';

@@ -22,7 +22,7 @@ interface StoreState {
   newGame: () => void;
 }
 
-export const useStore = create<StoreState>(
+const useStore = create<StoreState>(
   persist(
     (set, get) => ({
       answer: getRandomWord(),
@@ -79,3 +79,5 @@ export const useStore = create<StoreState>(
     }
   )
 );
+
+export default useStore;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ROWS_COUNT } from '../../constants/settings';
-import { useStore } from '../../store/store';
+import useStore from '../../store/store';
 
 import GridRow from './GridRow';
 
