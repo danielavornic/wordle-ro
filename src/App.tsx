@@ -1,13 +1,38 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import './index.css';
+
+import { WORD_LENGTH } from './constants/settings';
+import { isWordValid } from './utils/word-utils';
+import { useStore } from './store/store';
+import usePrevious from './hooks/usePrevious';
+import useGuess from './hooks/useGuess';
+
+import ModalGameOver from './components/ModalGameOver';
 import Grid from './components/grid/Grid';
 import Keyboard from './components/keyboard/Keyboard';
-import { useStore } from './store/store';
-import ModalGameOver from './components/ModalGameOver';
 
 const App: FC = () => {
-  const { gameStatus } = useStore();
+  const { gameStatus, addGuess } = useStore();
+  const [guess, setGuess, addLetterGuess] = useGuess();
+  const prevGuess = usePrevious(guess);
+  const [isValidGuess, setIsValidGuess] = useState<boolean>(true);
+
+  const handleKeyClick = (letter: string) => addLetterGuess(letter);
+
+  useEffect(() => {
+    if (guess.length === 0 && prevGuess?.length === WORD_LENGTH) {
+      const isValid = isWordValid(prevGuess);
+      setIsValidGuess(isValid);
+      if (isValid) addGuess(prevGuess);
+    }
+  }, [guess]);
+
+  useEffect(() => {
+    const interval = setTimeout(() => setIsValidGuess(true), 1000);
+    return () => clearTimeout(interval);
+  }, [isValidGuess]);
+
   return (
     <div className='container mx-auto relative'>
       <header>
@@ -20,9 +45,9 @@ const App: FC = () => {
 
       <main className='relative flex flex-col max-w-xl mx-auto'>
         <div className='flex items-center justify-center grow'>
-          <Grid />
+          <Grid isValidGuess={isValidGuess} guess={guess} />
         </div>
-        <Keyboard />
+        <Keyboard onClick={handleKeyClick} />
       </main>
     </div>
   );

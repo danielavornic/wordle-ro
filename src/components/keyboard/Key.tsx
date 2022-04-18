@@ -1,10 +1,12 @@
 import { FC } from 'react';
+
 import { FiDelete } from 'react-icons/fi';
 import { LetterStatus } from '../../types/LetterStatus';
 
 interface Props {
   value: string;
   status: LetterStatus | 'notUsed';
+  onClick: (value: string) => void;
 }
 
 const styles = {
@@ -30,14 +32,18 @@ const styles = {
   funcKeyWidth: 'w-12 sm:w-16',
 };
 
-const Key: FC<Props> = ({ value, status }) => {
+const Key: FC<Props> = ({ value, status, onClick }) => {
+  const letter = value === '↵' ? 'Enter' : value === '←' ? 'Backspace' : value;
+  const char = letter === 'Backspace' ? <FiDelete /> : letter;
+
   const { keyStyles, letterKeyWidth, funcKeyWidth, keyColors } = styles;
-  const char =
-    value === '↵' ? 'ENTER' : value === '←' ? <FiDelete size={18} /> : value;
-  const width = value !== '↵' && value !== '←' ? letterKeyWidth : funcKeyWidth;
+  const width = letter.length === 1 ? letterKeyWidth : funcKeyWidth;
+  const className = [keyStyles, width, keyColors[status]].join(' ');
 
   return (
-    <div className={`${keyStyles} ${keyColors[status]} ${width}`}>{char}</div>
+    <button className={className} onClick={() => onClick(letter)}>
+      {char}
+    </button>
   );
 };
 
