@@ -26,7 +26,7 @@ const styles = {
   heading: 'text-center font-bold text-2xl mt-8 mb-6',
   button:
     'bg-green-500 py-2 px-6 text-white rounded mx-auto block hover:bg-green-600',
-  overlay: 'w-full h-full absolute bg-gray-100 z-10',
+  overlay: 'w-full h-full absolute bg-gray-100 z-10 opacity-50',
 };
 
 const ModalGameOver: FC = () => {
@@ -40,7 +40,13 @@ const ModalGameOver: FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  useEffect(() => setIsModalOpen(gameStatus !== 'playing'), [gameStatus]);
+  useEffect(() => {
+    if (gameStatus !== 'playing') {
+      setTimeout(() => setIsModalOpen(true), 1000);
+    } else {
+      setIsModalOpen(false);
+    }
+  }, [gameStatus]);
 
   return (
     <>
@@ -62,11 +68,7 @@ const ModalGameOver: FC = () => {
           Joc nou
         </button>
       </div>
-      <div
-        className={`${overlayStyles} ${
-          isModalOpen ? 'opacity-50' : 'opacity-0'
-        }`}
-      ></div>
+      {isModalOpen && <div className={overlayStyles}></div>}
     </>
   );
 };
