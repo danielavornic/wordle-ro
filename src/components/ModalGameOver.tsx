@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import { useStore } from '../store/store';
 
 const styles = {
@@ -8,7 +10,7 @@ const styles = {
     'bg-green-400 py-2 px-6 text-white rounded mx-auto block hover:bg-green-600',
 };
 
-const ModalGameOver = () => {
+const ModalGameOver: FC = () => {
   const { newGame, gameStatus, answer } = useStore();
   const {
     modal: modalStyles,
@@ -20,7 +22,9 @@ const ModalGameOver = () => {
     <div role='modal' className={modalStyles}>
       <h2 className={headingStyles}>
         Game Over! <br />
-        {gameStatus === 'won' ? 'You won 😄' : `You lost.\n The answer was "${answer}".`}
+        {gameStatus === 'won'
+          ? 'Excelent! Ai ghicit cuvântul!'
+          : `Cuvântul era "${answer.toUpperCase}".`}
       </h2>
       <button className={buttonStyles} onClick={() => newGame()}>
         New Game
