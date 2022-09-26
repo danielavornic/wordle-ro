@@ -6,6 +6,8 @@ COPY . .
 
 RUN npm i 
 
+RUN npm test
+
 RUN npm run build
 
 ENV NODE_ENV production
